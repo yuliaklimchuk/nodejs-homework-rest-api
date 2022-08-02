@@ -11,5 +11,5 @@ module.exports = {
     add,
     deleteById,
     update,
-    updateFavorite
+    updateFavorite,
 }

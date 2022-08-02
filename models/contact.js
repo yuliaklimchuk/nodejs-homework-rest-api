@@ -9,7 +9,7 @@ const addShema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
   phone: Joi.string().required(),
-  favorite: Joi.boolean()
+    favorite: Joi.boolean(),
 })
 
 const updateFavoriteShema = Joi.object({
@@ -38,7 +38,11 @@ const contactSchema = new Schema({
     favorite: {
         type: Boolean,
         default: false,   
-    },
+  },
+  owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    }
 }, {versionKey:false, timestamps:true});
 
 const Contact = model("contact", contactSchema);
