@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { User, shemas } = require('../../models/user');
-const { createError } = require('../../helpers');
+const { createError} = require('../../helpers');
 
 const { SECRET_KEY } = process.env;
 
@@ -15,6 +15,9 @@ const { error } = shemas.signup.validate(req.body);
     const user = await User.findOne({ email });
     if (!user) { 
         throw createError(401, `Email or password is wrong`);
+    }
+    if (!user.verify) { 
+        throw createError(401, `Email is not verify`);
     }
     const comparePassword = await bcrypt.compare(password, user.password);
     if (!comparePassword) { 
